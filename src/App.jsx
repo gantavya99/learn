@@ -11,7 +11,7 @@ function App() {
 }
 
 export default App;
-
+//
 // Create a Todo app using React.js. Refer to the given image in the attachment.
 // You can use your own creativity for the look and feel.
 // Must have the functionality to Create, Edit, and Delete Tasks and filter them by Active/Completed/All.
