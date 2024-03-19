@@ -2,21 +2,21 @@ import "./App.css";
 import AddTask from "./components/AddTask";
 import FilterButtons from "./components/FilterButtons";
 import Todo from "./components/Todo";
+
+
 function App() {
-  return <div className="flex flex-col justify-center items-center">
-  <h1 className="text-4xl">
-    TodoMatic
-  </h1>
-  <h2 className="text-3xl">
-    What needs to be done?
-  </h2>
-  <AddTask />
-  <FilterButtons />
-  <h2 className="text-3xl">
-    3 Tasks remaining
-  </h2>
-  <Todo />
-  </div>;
+  return (
+      <div className="flex flex-col justify-center items-center">
+      <h1 className="text-4xl">TodoMatic</h1>
+      <h2 className="text-3xl">What needs to be done?</h2>
+      <AddTask />
+      <FilterButtons />
+      <h2 className="text-3xl">3 Tasks remaining</h2>
+      <Todo />
+    </div>
+ 
+    
+  );
 }
 
 export default App;
