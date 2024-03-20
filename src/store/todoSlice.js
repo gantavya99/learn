@@ -1,38 +1,42 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
-const initialState = {
-    todos: [{ id: 1, text: "Hello World"}]
-}
-export const todoSlice = createSlice({ 
-    name: 'todo',
-    initialState,
-    reducers: {
-        addTodo(state, action) {
-            const todo = {
-                id:nanoid(),
-                text:action.payload
-            }
-            if(action.payload)
-            state.todos.push(todo);
-            else
-            alert("Task cannot be blank!")
-        },
-        removeTodo(state, action) {
-            state.todos = state.todos.filter((item) => item.id !== action.payload); 
-        },
-        editTodo(state, action) {
-            const { id, text } = action.payload;
-            const todoIndex = state.todos.findIndex(todo => todo.id === id);
-            
-            if (todoIndex !== -1) {
-                state.todos[todoIndex].text = text;
-            } else {
-                console.error(`Todo with id ${id} not found`);
-            }
-        }
-    }
+// redux/todoSlice.js
+import { createSlice, nanoid } from '@reduxjs/toolkit';
+
+const todoSlice = createSlice({
+  name: 'todo',
+  initialState: {
+    tasks: [],
+    filter: 'all',
+  },
+  reducers: {
+    addTask: (state, action) => {
+      state.tasks.push({
+        id: nanoid(),
+        text: action.payload,
+        completed: false,
+      });
+    },
+    editTask: (state, action) => {
+      const { id, newText } = action.payload;
+      const task = state.tasks.find(task => task.id === id);
+      if (task) {
+        task.text = newText;
+      }
+    },
+    deleteTask: (state, action) => {
+      state.tasks = state.tasks.filter(task => task.id !== action.payload);
+    },
+    toggleTask: (state, action) => {
+      const task = state.tasks.find(task => task.id === action.payload);
+      if (task) {
+        task.completed = !task.completed;
+      }
+    },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
 });
-export const { addTodo, removeTodo,editTodo } = todoSlice.actions;
+
+export const { addTask, editTask, deleteTask, toggleTask, setFilter } = todoSlice.actions;
+
 export default todoSlice.reducer;
-
-
-

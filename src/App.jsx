@@ -1,34 +1,62 @@
-import "./App.css";
-import AddTask from "./components/AddTask";
-import FilterButtons from "./components/FilterButtons";
-import Todo from "./components/Todo";
+
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addTask,
+  setFilter,
+} from "./store/todoSlice";
+import TodoList from "./components/TodoList";
 
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const [text, setText] = React.useState("");
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text.trim() === "") 
+    alert("Task cannot be blank");
+    dispatch(addTask(text));
+    setText("");
+  };
+
   return (
-      <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl">TodoMatic</h1>
-      <h2 className="text-3xl">What needs to be done?</h2>
-      <AddTask />
-      <FilterButtons />
-      <h2 className="text-3xl">3 Tasks remaining</h2>
-      <Todo />
+    <div className="w-1/2 rounded-md  mx-auto mt-8">
+      <h1 className="text-2xl font-semibold mb-4">Todo App</h1>
+      
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
+          type="text"
+          value={text}
+          onChange={handleChange}
+          placeholder="Enter task"
+          className="border border-gray-300 px-4 py-2 w-64"
+        />
+        <button
+          type="submit"
+          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Add Task
+        </button>
+      </form>
+      <div className="mt-4">
+        <button onClick={() => dispatch(setFilter("all"))} className="mr-2 px-4 border border-gray-500 rounded-md">
+          All
+        </button>
+        <button onClick={() => dispatch(setFilter("active"))} className="mr-2 px-4 border border-gray-500 rounded-md">
+          Active
+        </button>
+        <button onClick={() => dispatch(setFilter("completed"))} className="px-4 border border-gray-500 rounded-md mr-2">
+          Completed
+        </button>
+      </div>
+      <TodoList />
     </div>
- 
-    
   );
-}
+};
 
 export default App;
-//
-// Create a Todo app using React.js. Refer to the given image in the attachment.
-// You can use your own creativity for the look and feel.
-// Must have the functionality to Create, Edit, and Delete Tasks and filter them by Active/Completed/All.
-// Guideline:
-
-// Must have used one functional component with Hooks and one class component with Life cycle methods.
-// Must have used Redux for global state management.
-// Bonus points for organized folder structure.
-// Bonus points for persisting the data on reload.
-// Bonus points for using Next.js.
-// Bonus points for mobile responsiveness.
