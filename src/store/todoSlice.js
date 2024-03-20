@@ -16,10 +16,10 @@ const todoSlice = createSlice({
       });
     },
     editTask: (state, action) => {
-      const { id, newText } = action.payload;
+      const { id, text } = action.payload;
       const task = state.tasks.find(task => task.id === id);
       if (task) {
-        task.text = newText;
+        task.text = text;
       }
     },
     deleteTask: (state, action) => {
